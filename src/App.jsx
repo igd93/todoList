@@ -1,7 +1,11 @@
+import "./styles.css"
+
 export default function App() {
-  const [count, setCount] = useState(0)
-
-  return ( "Hi" )
+  return <form className="new-item-form">
+    <div className="form-row">
+      <label htmlFor="item">New Item</label>
+      <input type="text" id="item"/>
+      <button className="btn">Add</button>
+    </div>
+    </form>
 }
-
-
