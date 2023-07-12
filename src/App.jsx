@@ -1,21 +1,20 @@
 import { useState } from "react"
 import "./styles.css"
+import { NewToDoForm } from "./NewToDoForm"
 
 export default function App() {
-  const [newItem, setNewItem] = useState("")
+  
   const [toDos, setToDos] = useState([])
 
-  function handleSubmit(e) {
-    e.preventDefault()
-  
+  function addToDo(title) {
     setToDos((currentToDos) => {
       return [...currentToDos, 
-        { id : crypto.randomUUID(), title: newItem, completed: false}, 
+        { id : crypto.randomUUID(), title, completed: false}, 
         ]
     })
-  
-    setNewItem("")
   }
+
+  
 
   function toggleToDo(id, completed) {
     setToDos(currentToDos => {
@@ -35,21 +34,11 @@ export default function App() {
 
   }
 
-  return <>
-   <form onSubmit = {handleSubmit} className="new-item-form">
-    <div className="form-row">
-      <label htmlFor="item">New Item</label>
-      <input       
-        value = {newItem} 
-        onChange= {e => setNewItem(e.target.value)}
-        type="text" 
-        id="item"/>
-      <button className="btn">Add</button>
-    </div>
-    </form>
+  return (<>
+    <NewToDoForm onSubmit = {addToDo}/>
     <h1 className="header">ToDo List</h1>
     <ul className="list">
-      {toDos.length === 0 && "No ToDos"}
+      {toDos.length === 0 && "No ToDos"} 
       {toDos.map(todo => {
         return (
         <li key={todo.id}>
@@ -63,5 +52,5 @@ export default function App() {
         )
       })}      
     </ul>
-    </>
+    </>)
 }
